@@ -1,0 +1,10 @@
+Get inside the artificats folder
+../bin/cryptogen generate --output="crypto-config" --config=artificats/cryptogen.yaml
+../bin/configtxgen -profile TwoOrgOrdererGenesis -outputBlock genesis.block -configPath=.
+../bin/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx channel.tx -channelID mychannel -configPath=.
+../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./MRFMSPanchors.tx -channelID mychannel -asOrg MRFMSP -configPath=.
+../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./AudiMSPanchors.tx -channelID mychannel -asOrg AudiMSP -configPath=.
+
+
+
+../bin/configtxgen -profile OneOrgsChannel -outputCreateChannelTx audi-channel.tx -channelID audichannel -configPath=.

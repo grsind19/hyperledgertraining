@@ -1,0 +1,68 @@
+Organizations:
+  - &OrdererOrg
+    Name: OrdererMSP
+    ID: OrdererMSP
+    MSPDir: crypto-config/ordererorganizations/order.com/msp
+    
+  - &Audi
+    Name: AudiMSP
+    ID: AudiMSP
+    MSPDir: crypto-config/peerorganizations/audi.order.com/msp
+    AnchorPeers:
+      - Host: peer0.audi.order.com
+        Port: 7051
+
+  - &MRF
+    Name: MRFMSP
+    ID: MRFMSP
+    MSPDir: crypto-config/peerorganizations/mrf.order.com/msp
+    AnchorPeers:
+      - Host: peer0.mrf.order.com
+        Port: 7051
+
+
+Application: &ApplicationDefaults
+  Organizations:
+
+
+Orderer: &OrdererDefaults
+  OrdererType: solo
+  Addresses:
+    - orderer.order.com:7050
+  BatchTimeout: 2s
+  Batchsize:
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 98 MB
+    PreferredMaxBytes: 512 KB
+  Organizations:
+
+
+Profiles:
+  TwoOrgOrdererGenesis:
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+        - *OrdererOrg  
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - *Audi
+          - *MRF 
+  
+
+  TwoOrgsChannel:
+    Consortium: SampleConsortium
+    Application: 
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Audi
+        - *MRF
+  
+  OneOrgsChannel:
+    Consortium: SampleConsortium
+    Application: 
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Audi
+  
+

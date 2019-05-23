@@ -1,0 +1,26 @@
+
+OrdererOrgs:
+  - Name: Orderer
+    Domain: order.com
+    Specs:
+      - Hostname: orderer
+
+
+PeerOrgs:
+  - Name: Audi
+    Domain: audi.order.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
+
+  - Name: MRF
+    Domain: mrf.order.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
